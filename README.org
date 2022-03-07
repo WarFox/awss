@@ -1,0 +1,37 @@
+#+title: AWSS
+
+A Practical cli for list, get and batch get apis on AWS.
+
+This cli tool provides list, get and batch get operations on AWS without
+worrying about =NextToken=. Instead it fetches all of the resources.
+
+Output is written to standard out and is mostly compatible with corresponding
+AWS CLI output, so you could use a tool like `jq` in your command.
+
+* Installation
+
+#+begin_src sh
+ brew install warfox/awss/awss
+#+end_src
+
+After installation this can be run by either `awss` or `awsss` command.
+
+* Example
+
+1. List Glue jobs
+Following command will list all glue jobs in your account, using NextToken internally
+
+#+begin_src sh
+  awss glue list-jobs
+#+end_src
+
+2. Batch Get Glue jobs
+Following command using the `BatchGetJobs`
+
+#+begin_src sh
+  awss glue batch-get-jobs
+#+end_src
+
+* References
+- https://medium.com/geekculture/building-a-node-js-cli-with-typescript-packaged-and-distributed-via-homebrew-15ba2fadcb81
+- https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-glue/index.html

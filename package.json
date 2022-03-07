@@ -1,0 +1,41 @@
+{
+  "name": "awss",
+  "version": "1.0.0",
+  "description": "nodejs scripts",
+  "main": "./build/cli.js",
+  "bin": {
+    "awss": "./build/cli.js",
+    "awsss": "./build/cli.js"
+  },
+  "author": "Deepu Mohan Puthrote",
+  "license": "MIT",
+  "homepage": "https://github.com/WarFox/awss",
+  "bugs": "https://github.com/WarFox/awss/",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "package:linux": "pkg . --targets node16-linux-x64 --output bin/linux/awss",
+    "package:macos": "pkg . --targets node16-macos-x64 --output bin/macos/awss",
+    "format": "prettier --loglevel warn --write \"**/*.{ts,js,json,yaml}\"",
+    "format:check": "prettier --loglevel warn --check \"**/*.{ts,js,json,yaml}\"",
+    "lint": "eslint \"src/**/*.ts\" --fix",
+    "lint:check": "eslint \"src/**/*.ts\""
+  },
+  "dependencies": {
+    "@aws-sdk/client-glue": "^3.53.0",
+    "yargs": "^17.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.21",
+    "@types/yargs": "^17.0.8",
+    "@typescript-eslint/eslint-plugin": "^5.13.0",
+    "eslint": "^8.10.0",
+    "eslint-config-prettier": "^8.5.0",
+    "pkg": "^5.5.2",
+    "prettier": "^2.5.1",
+    "typescript": "^4.6.2"
+  },
+  "pkg": {
+    "scripts": "build/**/*.js"
+  }
+}

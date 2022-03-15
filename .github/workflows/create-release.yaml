@@ -3,7 +3,7 @@ name: Build binaries for macOS and Linux, publish Node.js packages, create relea
 on:
   push:
     tags:
-      - 'v*'
+      - "v*"
 
 jobs:
   build-macos:
@@ -16,7 +16,7 @@ jobs:
       - name: Setup
         uses: actions/setup-node@v2
         with:
-          node-version: '16.x'
+          node-version: "16.x"
 
       - name: Package
         run: |
@@ -45,7 +45,7 @@ jobs:
       - name: Setup
         uses: actions/setup-node@v2
         with:
-          node-version: '16.x'
+          node-version: "16.x"
 
       - name: Package
         run: |
@@ -77,8 +77,8 @@ jobs:
       - name: Setup
         uses: actions/setup-node@v2
         with:
-          node-version: '16.x'
-          registry-url: 'https://registry.npmjs.org'
+          node-version: "16.x"
+          registry-url: "https://registry.npmjs.org"
 
       - name: Build and publish to npm registry
         continue-on-error: true
@@ -91,8 +91,8 @@ jobs:
 
       - uses: actions/setup-node@v2
         with:
-          node-version: '16.x'
-          registry-url: 'https://npm.pkg.github.com'
+          node-version: "16.x"
+          registry-url: "https://npm.pkg.github.com"
 
       - name: Publish to GitHub registry
         continue-on-error: true

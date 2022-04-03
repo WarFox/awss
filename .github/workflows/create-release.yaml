@@ -101,6 +101,9 @@ jobs:
       - name: debug
         run: cat /home/runner/work/_temp/.npmrc
 
+      - name: login
+        run: npm login --registry=https://npm.pkg.github.com
+
       - name: Publish to GitHub registry
         continue-on-error: true
         run: npm publish

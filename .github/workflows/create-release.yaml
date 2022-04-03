@@ -11,10 +11,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: "16.x"
 
@@ -30,7 +30,7 @@ jobs:
           tar -cvzf awss-macos-x64.tar.gz awss
 
       - name: Upload tarball artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: bin-macos
           path: awss-macos-x64.tar.gz
@@ -40,10 +40,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: "16.x"
 
@@ -59,7 +59,7 @@ jobs:
           tar -cvzf awss-linux-x64.tar.gz awss
 
       - name: Upload tarball artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: bin-linux
           path: awss-linux-x64.tar.gz
@@ -72,7 +72,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Build
         continue-on-error: true
@@ -83,7 +83,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Setup for npm registry
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: "16.x"
           registry-url: "https://registry.npmjs.org"
@@ -95,7 +95,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Setup for GitHub registry
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: "16.x"
           registry-url: "https://npm.pkg.github.com"
@@ -113,12 +113,12 @@ jobs:
 
     steps:
       - name: Download macos tarball
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: bin-macos
 
       - name: Download linux tarball
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: bin-linux
 

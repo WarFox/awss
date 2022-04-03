@@ -103,6 +103,8 @@ jobs:
 
       - name: login
         run: npm login --registry=https://npm.pkg.github.com
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish to GitHub registry
         continue-on-error: true

@@ -11,10 +11,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: "16.x"
 
@@ -26,24 +26,24 @@ jobs:
 
       - name: Create tarball
         run: |
-          mv bin/macos/snip snip
-          tar -cvzf snip-macos-x64.tar.gz snip
+          mv bin/macos/awss awss
+          tar -cvzf awss-macos-x64.tar.gz awss
 
       - name: Upload tarball artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: bin-macos
-          path: snip-macos-x64.tar.gz
+          path: awss-macos-x64.tar.gz
 
   build-linux:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: "16.x"
 
@@ -55,14 +55,14 @@ jobs:
 
       - name: Create tarball
         run: |
-          mv bin/linux/snip snip
-          tar -cvzf snip-linux-x64.tar.gz snip
+          mv bin/linux/awss awss
+          tar -cvzf awss-linux-x64.tar.gz awss
 
       - name: Upload tarball artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: bin-linux
-          path: snip-linux-x64.tar.gz
+          path: awss-linux-x64.tar.gz
 
   publish-node-packages:
     runs-on: ubuntu-latest
@@ -72,24 +72,30 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - name: Setup
-        uses: actions/setup-node@v2
-        with:
-          node-version: "16.x"
-          registry-url: "https://registry.npmjs.org"
-
-      - name: Build and publish to npm registry
+      - name: Build
         continue-on-error: true
         run: |
           npm ci
           npm run build
-          npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - uses: actions/setup-node@v2
+      - name: Setup for npm registry
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16.x"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Publish to npm registry
+        continue-on-error: true
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Setup for GitHub registry
+        uses: actions/setup-node@v3
         with:
           node-version: "16.x"
           registry-url: "https://npm.pkg.github.com"
@@ -107,19 +113,19 @@ jobs:
 
     steps:
       - name: Download macos tarball
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: bin-macos
 
       - name: Download linux tarball
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: bin-linux
 
       - name: Compute checksums
         run: |
-          sha256sum snip-macos-x64.tar.gz >> checksums.md
-          sha256sum snip-linux-x64.tar.gz >> checksums.md
+          sha256sum awss-macos-x64.tar.gz >> checksums.md
+          sha256sum awss-linux-x64.tar.gz >> checksums.md
 
       - name: Release
         uses: softprops/action-gh-release@v1
@@ -128,7 +134,7 @@ jobs:
           body_path: checksums.md
           files: |
             LICENSE
-            snip-macos-x64.tar.gz
-            snip-linux-x64.tar.gz
+            awss-macos-x64.tar.gz
+            awss-linux-x64.tar.gz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

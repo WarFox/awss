@@ -90,8 +90,8 @@ jobs:
         continue-on-error: true
         run: |
           npm --version
-          npm login
-          npm publish
+          yarn install
+          yarn publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

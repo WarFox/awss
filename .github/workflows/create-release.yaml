@@ -86,8 +86,8 @@ jobs:
       #     node-version: "16.x"
       #     registry-url: "https://registry.npmjs.org"
 
-      - name: debug
-        run: cat /home/runner/work/_temp/.npmrc
+      # - name: debug
+      #   run: cat /home/runner/work/_temp/.npmrc
 
       # - name: Publish to npm registry
       #   continue-on-error: true

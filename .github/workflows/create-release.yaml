@@ -92,20 +92,20 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Setup for npm registry
-        uses: actions/setup-node@v3
-        with:
-          node-version: "16.x"
-          registry-url: "https://registry.npmjs.org"
+      # - name: Setup for npm registry
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     node-version: "16.x"
+      #     registry-url: "https://registry.npmjs.org"
 
       - name: debug
         run: cat /home/runner/work/_temp/.npmrc
 
-      - name: Publish to npm registry
-        continue-on-error: true
-        run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      # - name: Publish to npm registry
+      #   continue-on-error: true
+      #   run: npm publish --access public
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   create-release:
     needs: [build-macos, build-linux, publish-node-packages]

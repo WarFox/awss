@@ -89,6 +89,7 @@ jobs:
       - name: Publish to GitHub registry
         continue-on-error: true
         run: |
+          npm --version
           npm login
           npm publish
         env:
